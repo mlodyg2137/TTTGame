@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace TTTGame
 {
-    public partial class Form1 : Form
+    public partial class form_game : Form
     {
-        public Form1()
+        public form_game()
         {
             InitializeComponent();
+        }
+
+        private void loadMenu(object sender, FormClosedEventArgs e)
+        {
+            this.Close();
+            form_menu menu = new form_menu();
+            menu.Show();
+            
         }
     }
 }
