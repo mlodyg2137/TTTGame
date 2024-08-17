@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Field.cs" />
     <Compile Include="form_game.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\img\field_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\img\field_o.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\img\field_x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

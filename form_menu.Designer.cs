@@ -39,7 +39,7 @@
             this.panel_menu.BackgroundImage = global::TTTGame.Properties.Resources.menu_page;
             this.panel_menu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel_menu.Controls.Add(this.btn_start);
-            this.panel_menu.Location = new System.Drawing.Point(122, 47);
+            this.panel_menu.Location = new System.Drawing.Point(124, 76);
             this.panel_menu.Name = "panel_menu";
             this.panel_menu.Size = new System.Drawing.Size(393, 487);
             this.panel_menu.TabIndex = 0;
@@ -67,6 +67,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.closeApplication);
+            this.Shown += new System.EventHandler(this.loadFields);
             this.panel_menu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btn_start)).EndInit();
             this.ResumeLayout(false);
