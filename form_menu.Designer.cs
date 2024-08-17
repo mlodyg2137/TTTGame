@@ -54,7 +54,7 @@
             this.btn_start.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btn_start.TabIndex = 0;
             this.btn_start.TabStop = false;
-            this.btn_start.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.btn_start.Click += new System.EventHandler(this.loadGame);
             // 
             // form_menu
             // 
@@ -67,7 +67,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.closeApplication);
-            this.Shown += new System.EventHandler(this.loadFields);
             this.panel_menu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btn_start)).EndInit();
             this.ResumeLayout(false);

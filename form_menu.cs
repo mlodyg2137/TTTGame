@@ -16,15 +16,7 @@ namespace TTTGame
         {
             InitializeComponent();
         }
-        Field[] fields = new Field[9];
-        private void loadFields(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                fields[i] = new Field($"field_{i}", i, false);
-            }
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void loadGame(object sender, EventArgs e)
         {
             form_game gamePage = new form_game();
             this.Hide();
@@ -35,7 +27,5 @@ namespace TTTGame
         {
             Application.Exit();
         }
-
-        
     }
 }
