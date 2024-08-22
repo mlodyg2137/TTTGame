@@ -77,6 +77,7 @@
             // panel_board
             // 
             this.panel_board.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel_board.Controls.Add(this.field_6);
             this.panel_board.Controls.Add(this.field_2);
             this.panel_board.Controls.Add(this.field_1);
             this.panel_board.Controls.Add(this.field_0);
@@ -85,7 +86,6 @@
             this.panel_board.Controls.Add(this.field_3);
             this.panel_board.Controls.Add(this.field_8);
             this.panel_board.Controls.Add(this.field_7);
-            this.panel_board.Controls.Add(this.field_6);
             this.panel_board.Location = new System.Drawing.Point(76, 93);
             this.panel_board.Name = "panel_board";
             this.panel_board.Size = new System.Drawing.Size(450, 450);

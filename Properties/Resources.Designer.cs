@@ -63,6 +63,16 @@ namespace TTTGame.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap exit_btn {
+            get {
+                object obj = ResourceManager.GetObject("exit_btn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap field {
             get {
                 object obj = ResourceManager.GetObject("field", resourceCulture);
@@ -116,6 +126,26 @@ namespace TTTGame.Properties {
         internal static System.Drawing.Bitmap gameboard {
             get {
                 object obj = ResourceManager.GetObject("gameboard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gamesettings_page {
+            get {
+                object obj = ResourceManager.GetObject("gamesettings_page", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap leaderboard_btn {
+            get {
+                object obj = ResourceManager.GetObject("leaderboard_btn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

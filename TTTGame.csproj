@@ -61,6 +61,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="usercontrol_gamesettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usercontrol_gamesettings.Designer.cs">
+      <DependentUpon>usercontrol_gamesettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol_leaderboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usercontrol_leaderboard.Designer.cs">
+      <DependentUpon>usercontrol_leaderboard.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="form_game.resx">
       <DependentUpon>form_game.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +89,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="usercontrol_gamesettings.resx">
+      <DependentUpon>usercontrol_gamesettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usercontrol_leaderboard.resx">
+      <DependentUpon>usercontrol_leaderboard.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,6 +131,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\img\field_x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\img\leaderboard_btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\img\exit_btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\img\gamesettings_page.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
