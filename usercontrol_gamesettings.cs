@@ -31,5 +31,30 @@ namespace TTTGame
             Parent.Controls["panel_menu"].Visible = true;
             Parent.Controls["panel_menu"].BringToFront();
         }
+
+        private void handleCheckboxChange(object sender, EventArgs e)
+        {
+            int index = checkedListBox1.SelectedIndex;
+            int count = checkedListBox1.Items.Count;
+
+            if (index == 0) 
+            { 
+                label3.Visible = true;
+                textBox2.Visible = true;
+            }
+            else
+            {
+                label3.Visible = false;
+                textBox2.Visible = false;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                if (index != i)
+                {
+                    checkedListBox1.SetItemCheckState(i, CheckState.Unchecked);
+                }
+            }
+        }
     }
 }
