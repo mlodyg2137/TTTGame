@@ -86,6 +86,7 @@ namespace TTTGame
             this.Close();
             form_menu menu = new form_menu();
             menu.Show();
+            
         }
         private void loadFields(object sender, EventArgs e)
         {
