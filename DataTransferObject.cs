@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace TTTGame
 {
-    internal class DataTransferObject
+    public class DataTransferObject
     {
-        public string ChosenOpponent {  get; set; }
-        public GameData GameD { get; set; }
+        public string PlayerNickname { get; set; }
+        public string OpponentNickname { get; set; }
+        public string ChosenOpponent { get; set; }
+        
         public DataTransferObject() { }
     }
 }

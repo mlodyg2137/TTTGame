@@ -19,9 +19,82 @@ namespace TTTGame
 
         private void loadGame(object sender, EventArgs e)
         {
-            form_game gamePage = new form_game();
-            ParentForm.Hide();
-            gamePage.ShowDialog();
+            int correctDataStatus = ifCorrectData();
+            if (correctDataStatus == 0)
+            {
+                DataTransferObject dto = new DataTransferObject();
+                dto.PlayerNickname = textBox1.Text;
+                if (checkedListBox1.SelectedIndex == 0)
+                {
+                    dto.ChosenOpponent = "player";
+                    if ((string.IsNullOrEmpty(textBox2.Text)) || (string.IsNullOrWhiteSpace(textBox2.Text)))
+                    {
+                        dto.OpponentNickname = "Opponent";
+                    }
+                    else
+                    {
+                        dto.OpponentNickname = textBox2.Text;
+                    }
+                }
+                else if (checkedListBox1.SelectedIndex == 1)
+                {
+                    dto.ChosenOpponent = "easy_bot";
+                }
+                else if (checkedListBox1.SelectedIndex == 2)
+                {
+                    dto.ChosenOpponent = "hard_bot";
+                }
+
+
+                form_game gamePage = new form_game(dto);
+                ParentForm.Hide();
+                gamePage.ShowDialog();
+            }
+            else if (correctDataStatus == 1)
+            {
+                label4.Text = "Set nickname!";
+            }
+            else if (correctDataStatus == 2)
+            {
+                label4.Text = "Your nickname contains spaces only!";
+            }
+            else if (correctDataStatus == 3)
+            {
+                label4.Text = "Your nickname's length is greater than 12!";
+            }
+            else if (correctDataStatus == 4)
+            {
+                label4.Text = "Not chosen opponent!";
+            }
+        }
+
+        private int ifCorrectData()
+        {
+            // Possible outcomes
+            // 0 - Everything is correct
+            // 1 - Null or empty nickname
+            // 2 - Null or spaces-only in nickname
+            // 3 - Length of nickname is greater than 12
+            // 4 - Not chosen opponent
+
+            if (string.IsNullOrEmpty(textBox1.Text))
+            {
+                return 1;
+            }
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                return 2;
+            }
+            if (textBox1.Text.Length > 12)
+            {
+                return 3;
+            }
+            if (checkedListBox1.CheckedItems.Count <= 0) 
+            {
+                return 4;
+            }
+
+            return 0;
         }
 
         private void btn_back_Click(object sender, EventArgs e)

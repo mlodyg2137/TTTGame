@@ -14,10 +14,12 @@ namespace TTTGame
     public partial class form_game : Form
     {
         GameData gameData = new GameData();
+        DataTransferObject _dto;
 
-        public form_game()
+        public form_game(DataTransferObject dto)
         {
             InitializeComponent();
+            _dto = dto;
         }
 
         public void loadFields(object sender, EventArgs e)
