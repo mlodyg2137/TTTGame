@@ -10,9 +10,10 @@ namespace TTTGame
     {
         public string Player1 { set; get; }
         public string Player2 { set; get; }
-        public int Result { set; get; }
+        public double ResultPlayer1 { set; get; }
+        public double ResultPlayer2 { set; get; }
         public Field[] Fields { set; get; }
-        public bool CurrentPlayer { set; get; } // true - X player, false - O player
+        public bool CurrentPlayer { set; get; } // true - 'X' player, false - 'O' player
         public int NumMoves { set; get; }
 
         public GameData() 
@@ -83,7 +84,7 @@ namespace TTTGame
 
         }
 
-        public void loadFields(object sender, EventArgs e)
+        public void loadFields()
         {
             for (int i = 0; i < 9; i++)
             {

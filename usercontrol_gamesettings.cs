@@ -24,6 +24,7 @@ namespace TTTGame
             {
                 DataTransferObject dto = new DataTransferObject();
                 dto.PlayerNickname = textBox1.Text;
+                dto.Bestof = Int32.Parse(checkedListBox2.CheckedItems[0].ToString());
                 if (checkedListBox1.SelectedIndex == 0)
                 {
                     dto.ChosenOpponent = "player";
@@ -39,10 +40,12 @@ namespace TTTGame
                 else if (checkedListBox1.SelectedIndex == 1)
                 {
                     dto.ChosenOpponent = "easy_bot";
+                    dto.OpponentNickname = "Easy Bot";
                 }
                 else if (checkedListBox1.SelectedIndex == 2)
                 {
                     dto.ChosenOpponent = "hard_bot";
+                    dto.OpponentNickname = "Hard Bot";
                 }
 
 
@@ -56,15 +59,19 @@ namespace TTTGame
             }
             else if (correctDataStatus == 2)
             {
-                label4.Text = "Your nickname contains spaces only!";
+                label4.Text = "Nickname contains spaces only!";
             }
             else if (correctDataStatus == 3)
             {
-                label4.Text = "Your nickname's length is greater than 12!";
+                label4.Text = "Nickname's length is greater than 9!";
             }
             else if (correctDataStatus == 4)
             {
                 label4.Text = "Not chosen opponent!";
+            }
+            else if (correctDataStatus == 5)
+            {
+                label4.Text = "Not chosen Best-of!";
             }
         }
 
@@ -74,24 +81,29 @@ namespace TTTGame
             // 0 - Everything is correct
             // 1 - Null or empty nickname
             // 2 - Null or spaces-only in nickname
-            // 3 - Length of nickname is greater than 12
+            // 3 - Length of nickname is greater than 9
             // 4 - Not chosen opponent
+            // 5 - Not chosen best-of
 
-            if (string.IsNullOrEmpty(textBox1.Text))
+            if ((string.IsNullOrEmpty(textBox1.Text))||(string.IsNullOrEmpty(textBox2.Text)))
             {
                 return 1;
             }
-            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            if ((string.IsNullOrWhiteSpace(textBox1.Text))||(string.IsNullOrWhiteSpace(textBox2.Text)))
             {
                 return 2;
             }
-            if (textBox1.Text.Length > 12)
+            if ((textBox1.Text.Length > 9)||(textBox2.Text.Length > 9))
             {
                 return 3;
             }
             if (checkedListBox1.CheckedItems.Count <= 0) 
             {
                 return 4;
+            }
+            if (checkedListBox2.CheckedItems.Count <= 0)
+            {
+                return 5;
             }
 
             return 0;
@@ -126,6 +138,19 @@ namespace TTTGame
                 if (index != i)
                 {
                     checkedListBox1.SetItemCheckState(i, CheckState.Unchecked);
+                }
+            }
+        }
+        private void handleCheckbox2Change(object sender, EventArgs e)
+        {
+            int index = checkedListBox2.SelectedIndex;
+            int count = checkedListBox2.Items.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (index != i)
+                {
+                    checkedListBox2.SetItemCheckState(i, CheckState.Unchecked);
                 }
             }
         }
