@@ -11,6 +11,7 @@ namespace TTTGame
         public string PlayerNickname { get; set; }
         public string OpponentNickname { get; set; }
         public string ChosenOpponent { get; set; }
+        public int Bestof {  get; set; }
         
         public DataTransferObject() { }
     }

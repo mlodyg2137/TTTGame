@@ -16,13 +16,7 @@ namespace TTTGame
         {
             InitializeComponent();
         }
-        private void loadGame(object sender, EventArgs e)
-        {
-            form_game gamePage = new form_game();
-            this.Hide();
-            
-            gamePage.ShowDialog();
-        }
+        
 
         private void closeApplication(object sender, FormClosedEventArgs e)
         {

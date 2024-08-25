@@ -15,16 +15,14 @@ namespace TTTGame
     {
         GameData gameData = new GameData();
         DataTransferObject _dto;
+        bool Xplayer = true; // true - first player is 'X', false - 2nd player is 'X'
+        int round = 0;
+        bool IfEndGame = false;
 
         public form_game(DataTransferObject dto)
         {
             InitializeComponent();
             _dto = dto;
-        }
-
-        public void loadFields(object sender, EventArgs e)
-        {
-            gameData.loadFields(sender, e);
         }
 
         private void loadMenu(object sender, FormClosedEventArgs e)
@@ -34,7 +32,54 @@ namespace TTTGame
             menu.Show();
             
         }
-        
+        private void startGame()
+        {
+            gameData.loadFields();
+            gameData.NumMoves = 0;
+            gameData.CurrentPlayer = true;
+
+            if (round == 0)
+            {
+                Random random = new Random();
+                Xplayer = random.Next(2) == 0;
+            }
+            else
+            {
+                Xplayer = !Xplayer;
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                Control[] fld = this.Controls.Find($"field_{i}", true);
+                (fld[0] as PictureBox).Image = Properties.Resources.field;
+                
+            }
+                
+
+            round++;
+            label_result.Text = $"{gameData.ResultPlayer1}:{gameData.ResultPlayer2}";
+            label_player1_sign.Text = (Xplayer) ? "X" : "O";
+            label_player2_sign.Text = (Xplayer) ? "O" : "X";
+            label_bestof.Text = $"Best-of: {_dto.Bestof}";
+            label_round.Text = $"Round: {round}";
+
+            panel_board.Enabled = true ;
+
+        }
+
+        private void loadGameForm(object sender, EventArgs e)
+        {
+            gameData.Player1 = _dto.PlayerNickname;
+            gameData.Player2 = _dto.OpponentNickname;
+            gameData.ResultPlayer1 = gameData.ResultPlayer2 = 0;
+            startGame();
+            round = 0;
+
+            label_player1.Text = _dto.PlayerNickname;
+            label_player2.Text = _dto.OpponentNickname;
+            
+        }
+
         public int getFieldNum(object sender)
         {
             char LastSign = (sender as PictureBox).Name[(sender as PictureBox).Name.Length - 1];
@@ -59,30 +104,10 @@ namespace TTTGame
         private void clickField(object sender, MouseEventArgs e)
         {
             bool IfMoved = false;
-            if (gameData.CurrentPlayer)
+            if (!gameData.Fields[getFieldNum(sender)].IsTaken)
             {
-                if (!gameData.Fields[getFieldNum(sender)].IsTaken)
-                {
-                    (sender as PictureBox).Image = Properties.Resources.field_x;
-                    gameData.Fields[getFieldNum(sender)].IsTaken = true;
-                    gameData.Fields[getFieldNum(sender)].Player = gameData.CurrentPlayer;
-                    gameData.CurrentPlayer = !gameData.CurrentPlayer;
-                    gameData.NumMoves++;
-                    IfMoved = true;
-                }
-                
-            }
-            else
-            {
-                if (!gameData.Fields[getFieldNum(sender)].IsTaken)
-                {
-                    (sender as PictureBox).Image = Properties.Resources.field_o;
-                    gameData.Fields[getFieldNum(sender)].IsTaken = true;
-                    gameData.Fields[getFieldNum(sender)].Player = gameData.CurrentPlayer;
-                    gameData.CurrentPlayer = !gameData.CurrentPlayer;
-                    gameData.NumMoves++;
-                    IfMoved = true;
-                }
+                handleMove(sender);
+                IfMoved = true;
             }
             if (IfMoved)
             {
@@ -99,19 +124,138 @@ namespace TTTGame
                 else if (status == 1)
                 {
                     game_status.Text = "Player X won!";
+                    handleEndMatch(true);
                 }
                 else if (status == 2)
                 // 'o' player wins
                 {
                     game_status.Text = "Player O won!";
+                    handleEndMatch(false);
                 }
                 else if (status == 3)
                 // draw
                 {
                     game_status.Text = "Draw.";
+                    handleEndMatch(false, true);
                 }
 
             }
+        }
+
+        private void handleMove(object sender)
+        {
+            if (_dto.ChosenOpponent == "player")
+            {
+                if (gameData.CurrentPlayer) // 'X' player
+                {
+                    (sender as PictureBox).Image = Properties.Resources.field_x;
+                    gameData.Fields[getFieldNum(sender)].IsTaken = true;
+                    gameData.Fields[getFieldNum(sender)].Player = gameData.CurrentPlayer;
+                    gameData.CurrentPlayer = !gameData.CurrentPlayer;
+                    gameData.NumMoves++;
+                }
+                else // 'O' player
+                {
+                    
+                    (sender as PictureBox).Image = Properties.Resources.field_o;
+                    gameData.Fields[getFieldNum(sender)].IsTaken = true;
+                    gameData.Fields[getFieldNum(sender)].Player = gameData.CurrentPlayer;
+                    gameData.CurrentPlayer = !gameData.CurrentPlayer;
+                    gameData.NumMoves++;
+                }
+            }
+            else if (_dto.ChosenOpponent == "easy_bot")
+            {
+
+            }
+            else if (_dto.ChosenOpponent == "hard_bot")
+            {
+
+            }
+        }
+
+        private void handleEndMatch(bool wonSign, bool isDraw=false)
+        {
+            if (isDraw)
+            {
+                gameData.ResultPlayer1 += 0.5;
+                gameData.ResultPlayer2 += 0.5;
+                label_winstatus.Text = $"Draw!";
+            }
+            else if (wonSign) // 'X' win
+            {
+                if (wonSign==Xplayer) 
+                {
+                    gameData.ResultPlayer1++;
+                    label_winstatus.Text = $"{gameData.Player1} won round!";
+                }
+                else 
+                { 
+                    gameData.ResultPlayer2++;
+                    label_winstatus.Text = $"{gameData.Player2} won round!";
+                }
+            }
+            else if (!wonSign) // 'O' win
+            {
+                if (!wonSign == Xplayer) 
+                {
+                    gameData.ResultPlayer2++;
+                    label_winstatus.Text = $"{gameData.Player2} won round!";
+                }
+                else 
+                {
+                    gameData.ResultPlayer1++;
+                    label_winstatus.Text = $"{gameData.Player1} won round!";
+                }
+            }
+
+            panel_board.Enabled = false;
+            label_result.Text = $"{gameData.ResultPlayer1}:{gameData.ResultPlayer2}";
+            panel_endround.Visible = true;
+            btn_next.Text = "Next";
+
+            // end game
+            if ((gameData.ResultPlayer1 >= _dto.Bestof) || (gameData.ResultPlayer2 >= _dto.Bestof))
+            {
+                btn_next.Text = "End";
+                IfEndGame = true;
+                label_endgame_descr.Visible = true;
+                label_endgame_descr.BringToFront();
+                
+
+                // 1st player wins
+                if (gameData.ResultPlayer1 > gameData.ResultPlayer2)
+                {
+                    label_endgame_descr.Text = $"Player '{gameData.Player1}' won this game!";
+                }
+                // 2nd player wins
+                else if (gameData.ResultPlayer1 < gameData.ResultPlayer2)
+                {
+                    label_endgame_descr.Text = $"Player '{gameData.Player2}' won this game!";
+                }
+                // draw
+                else
+                {
+                    label_endgame_descr.Text = $"Draw!";
+                }
+            }
+
+
+
+        }
+
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            if (!IfEndGame)
+            {
+                startGame();
+                panel_endround.Visible = false;
+            }
+            else
+            {
+                loadMenu(sender, e as FormClosedEventArgs);
+            }
+            
         }
     }
 }
