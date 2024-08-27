@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bot.cs" />
     <Compile Include="DataTransferObject.cs" />
+    <Compile Include="EasyBot.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="form_game.cs">
       <SubType>Form</SubType>
@@ -61,6 +63,7 @@
       <DependentUpon>form_menu.cs</DependentUpon>
     </Compile>
     <Compile Include="GameData.cs" />
+    <Compile Include="HardBot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="usercontrol_gamesettings.cs">
