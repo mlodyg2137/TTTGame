@@ -131,6 +131,8 @@ namespace TTTGame
             {
                 label3.Visible = false;
                 textBox2.Visible = false;
+                if (index==1) textBox2.Text = "Easy Bot";
+                else if (index==2) textBox2.Text = "Hard Bot";
             }
 
             for (int i = 0; i < count; i++)

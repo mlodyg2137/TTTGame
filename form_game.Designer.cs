@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel_game = new System.Windows.Forms.Panel();
             this.panel_board = new System.Windows.Forms.Panel();
             this.field_6 = new System.Windows.Forms.PictureBox();
@@ -39,6 +40,7 @@
             this.field_3 = new System.Windows.Forms.PictureBox();
             this.field_8 = new System.Windows.Forms.PictureBox();
             this.field_7 = new System.Windows.Forms.PictureBox();
+            this.label_endgame_descr = new System.Windows.Forms.Label();
             this.game_status = new System.Windows.Forms.Label();
             this.label_player1 = new System.Windows.Forms.Label();
             this.label_player2 = new System.Windows.Forms.Label();
@@ -50,7 +52,7 @@
             this.panel_endround = new System.Windows.Forms.Panel();
             this.btn_next = new System.Windows.Forms.Button();
             this.label_winstatus = new System.Windows.Forms.Label();
-            this.label_endgame_descr = new System.Windows.Forms.Label();
+            this.timer_handlebot = new System.Windows.Forms.Timer(this.components);
             this.panel_game.SuspendLayout();
             this.panel_board.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.field_6)).BeginInit();
@@ -220,6 +222,18 @@
             this.field_7.MouseHover += new System.EventHandler(this.mouseOnField);
             this.field_7.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseOnField);
             // 
+            // label_endgame_descr
+            // 
+            this.label_endgame_descr.BackColor = System.Drawing.SystemColors.Control;
+            this.label_endgame_descr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_endgame_descr.Location = new System.Drawing.Point(69, 65);
+            this.label_endgame_descr.Name = "label_endgame_descr";
+            this.label_endgame_descr.Size = new System.Drawing.Size(322, 302);
+            this.label_endgame_descr.TabIndex = 10;
+            this.label_endgame_descr.Text = "end_game_description";
+            this.label_endgame_descr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_endgame_descr.Visible = false;
+            // 
             // game_status
             // 
             this.game_status.AutoSize = true;
@@ -343,17 +357,9 @@
             this.label_winstatus.Text = "win_status";
             this.label_winstatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_endgame_descr
+            // timer_handlebot
             // 
-            this.label_endgame_descr.BackColor = System.Drawing.SystemColors.Control;
-            this.label_endgame_descr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_endgame_descr.Location = new System.Drawing.Point(69, 65);
-            this.label_endgame_descr.Name = "label_endgame_descr";
-            this.label_endgame_descr.Size = new System.Drawing.Size(322, 302);
-            this.label_endgame_descr.TabIndex = 10;
-            this.label_endgame_descr.Text = "end_game_description";
-            this.label_endgame_descr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label_endgame_descr.Visible = false;
+            this.timer_handlebot.Tick += new System.EventHandler(this.timer_handlebot_Tick);
             // 
             // form_game
             // 
@@ -418,5 +424,6 @@
         private System.Windows.Forms.Button btn_next;
         private System.Windows.Forms.Label label_winstatus;
         private System.Windows.Forms.Label label_endgame_descr;
+        private System.Windows.Forms.Timer timer_handlebot;
     }
 }
