@@ -33,6 +33,7 @@
             this.btn_leaderboard = new System.Windows.Forms.PictureBox();
             this.btn_start = new System.Windows.Forms.PictureBox();
             this.usercontrol_gamesettings1 = new TTTGame.usercontrol_gamesettings();
+            this.usercontrol_leaderboard1 = new TTTGame.usercontrol_leaderboard();
             this.panel_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_exit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_leaderboard)).BeginInit();
@@ -73,6 +74,7 @@
             this.btn_leaderboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btn_leaderboard.TabIndex = 1;
             this.btn_leaderboard.TabStop = false;
+            this.btn_leaderboard.Click += new System.EventHandler(this.loadLeaderboard);
             // 
             // btn_start
             // 
@@ -96,6 +98,16 @@
             this.usercontrol_gamesettings1.TabIndex = 1;
             this.usercontrol_gamesettings1.Visible = false;
             // 
+            // usercontrol_leaderboard1
+            // 
+            this.usercontrol_leaderboard1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.usercontrol_leaderboard1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usercontrol_leaderboard1.Location = new System.Drawing.Point(0, 0);
+            this.usercontrol_leaderboard1.Name = "usercontrol_leaderboard1";
+            this.usercontrol_leaderboard1.Size = new System.Drawing.Size(634, 611);
+            this.usercontrol_leaderboard1.TabIndex = 2;
+            this.usercontrol_leaderboard1.Visible = false;
+            // 
             // form_menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +116,7 @@
             this.ClientSize = new System.Drawing.Size(634, 611);
             this.Controls.Add(this.panel_menu);
             this.Controls.Add(this.usercontrol_gamesettings1);
+            this.Controls.Add(this.usercontrol_leaderboard1);
             this.Name = "form_menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
@@ -124,6 +137,7 @@
         private System.Windows.Forms.PictureBox btn_leaderboard;
         private System.Windows.Forms.PictureBox btn_exit;
         private usercontrol_gamesettings usercontrol_gamesettings1;
+        private usercontrol_leaderboard usercontrol_leaderboard1;
     }
 }
 

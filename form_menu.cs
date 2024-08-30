@@ -36,6 +36,14 @@ namespace TTTGame
             usercontrol_gamesettings1.BringToFront();
         }
 
+        private void loadLeaderboard(object sender, EventArgs e)
+        {
+            panel_menu.Visible = false;
+            panel_menu.SendToBack();
+            usercontrol_leaderboard1.Visible = true;
+            usercontrol_leaderboard1.BringToFront();
+        }
+
         private void shownMenu(object sender, EventArgs e)
         {
             panel_menu.Visible = true;

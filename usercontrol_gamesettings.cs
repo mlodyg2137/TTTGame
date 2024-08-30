@@ -23,18 +23,18 @@ namespace TTTGame
             if (correctDataStatus == 0)
             {
                 DataTransferObject dto = new DataTransferObject();
-                dto.PlayerNickname = textBox1.Text;
+                dto.PlayerNickname = textBox1.Text.Trim();
                 dto.Bestof = Int32.Parse(checkedListBox2.CheckedItems[0].ToString());
                 if (checkedListBox1.SelectedIndex == 0)
                 {
                     dto.ChosenOpponent = "player";
                     if ((string.IsNullOrEmpty(textBox2.Text)) || (string.IsNullOrWhiteSpace(textBox2.Text)))
                     {
-                        dto.OpponentNickname = "Opponent";
+                        dto.OpponentNickname = "nameless";
                     }
                     else
                     {
-                        dto.OpponentNickname = textBox2.Text;
+                        dto.OpponentNickname = textBox2.Text.Trim();
                     }
                 }
                 else if (checkedListBox1.SelectedIndex == 1)
@@ -73,6 +73,10 @@ namespace TTTGame
             {
                 label4.Text = "Not chosen Best-of!";
             }
+            else if (correctDataStatus == 6)
+            {
+                label4.Text = "Nickname cannot be 'Easy/Hard Bot'!";
+            }
         }
 
         private int ifCorrectData()
@@ -84,6 +88,7 @@ namespace TTTGame
             // 3 - Length of nickname is greater than 9
             // 4 - Not chosen opponent
             // 5 - Not chosen best-of
+            // 6 - 'Easy/Hard Bot' in nickname
 
             if ((string.IsNullOrEmpty(textBox1.Text))||(string.IsNullOrEmpty(textBox2.Text)))
             {
@@ -105,6 +110,12 @@ namespace TTTGame
             {
                 return 5;
             }
+            if ((((textBox1.Text == "Easy Bot") || (textBox1.Text == "Hard Bot") || (textBox2.Text == "Easy Bot") || (textBox2.Text == "Hard Bot")) && (checkedListBox1.SelectedIndex==0)) || 
+                    (((textBox1.Text=="Easy Bot") || (textBox1.Text == "Hard Bot")) && ((checkedListBox1.SelectedIndex==1)||(checkedListBox1.SelectedIndex==2))))
+            {
+                return 6;
+            }
+            
 
             return 0;
         }
@@ -156,5 +167,7 @@ namespace TTTGame
                 }
             }
         }
+
+        
     }
 }

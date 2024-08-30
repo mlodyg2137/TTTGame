@@ -130,8 +130,11 @@
   <data name="field_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\img\field_hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exit_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\img\exit_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="leaderboard_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\img\leaderboard_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gamesettings_page" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\img\gamesettings_page.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="game_page" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\img\game_page.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,8 +142,8 @@
   <data name="field_x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\img\field_x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="leaderboard_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\img\leaderboard_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="exit_btn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\img\exit_btn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menu_page" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\img\menu_page.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,7 +151,7 @@
   <data name="gameboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\img\gameboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gamesettings_page" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\img\gamesettings_page.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="leaderboard_page" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\img\leaderboard_page.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

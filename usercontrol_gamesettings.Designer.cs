@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel_gamesettings = new System.Windows.Forms.Panel();
+            this.btn_back = new System.Windows.Forms.Button();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -38,7 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_back = new System.Windows.Forms.Button();
             this.btn_start = new System.Windows.Forms.PictureBox();
             this.panel_gamesettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_start)).BeginInit();
@@ -65,6 +65,16 @@
             this.panel_gamesettings.Name = "panel_gamesettings";
             this.panel_gamesettings.Size = new System.Drawing.Size(650, 650);
             this.panel_gamesettings.TabIndex = 1;
+            // 
+            // btn_back
+            // 
+            this.btn_back.Location = new System.Drawing.Point(41, 95);
+            this.btn_back.Name = "btn_back";
+            this.btn_back.Size = new System.Drawing.Size(75, 23);
+            this.btn_back.TabIndex = 13;
+            this.btn_back.Text = "Back";
+            this.btn_back.UseVisualStyleBackColor = true;
+            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
             // checkedListBox2
             // 
@@ -171,16 +181,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Nickname";
             // 
-            // btn_back
-            // 
-            this.btn_back.Location = new System.Drawing.Point(29, 602);
-            this.btn_back.Name = "btn_back";
-            this.btn_back.Size = new System.Drawing.Size(80, 21);
-            this.btn_back.TabIndex = 3;
-            this.btn_back.Text = "Back";
-            this.btn_back.UseVisualStyleBackColor = true;
-            this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
-            // 
             // btn_start
             // 
             this.btn_start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -212,7 +212,6 @@
 
         private System.Windows.Forms.Panel panel_gamesettings;
         private System.Windows.Forms.PictureBox btn_start;
-        private System.Windows.Forms.Button btn_back;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
@@ -222,5 +221,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btn_back;
     }
 }

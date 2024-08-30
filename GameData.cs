@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace TTTGame
 {
-    internal class GameData
+    public class GameData
     {
         public string Player1 { set; get; }
         public string Player2 { set; get; }
         public double ResultPlayer1 { set; get; }
         public double ResultPlayer2 { set; get; }
+        public int BestOf {  set; get; }
         public Field[] Fields { set; get; }
         public bool CurrentPlayer { set; get; } // true - 'X' player, false - 'O' player
         public int NumMoves { set; get; }

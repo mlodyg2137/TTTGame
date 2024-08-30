@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MySqlX.XDevAPI.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 
 namespace TTTGame
@@ -17,6 +18,7 @@ namespace TTTGame
     {
         GameData gameData = new GameData();
         DataTransferObject _dto;
+        string dataSource = "Data Source=gameDB.db";
         bool Xplayer; // true - first player is 'X', false - second player is 'X'
         int round = 0;
         bool IfEndGame = false;
@@ -84,11 +86,15 @@ namespace TTTGame
             gameData.Player1 = _dto.PlayerNickname;
             gameData.Player2 = _dto.OpponentNickname;
             gameData.ResultPlayer1 = gameData.ResultPlayer2 = 0;
+            gameData.BestOf = _dto.Bestof;
             round = 0;
             startGame();
 
             label_player1.Text = _dto.PlayerNickname;
             label_player2.Text = _dto.OpponentNickname;
+
+            AddPlayerToDatabase(_dto.PlayerNickname);
+            AddPlayerToDatabase(_dto.OpponentNickname);
 
             if (_dto.ChosenOpponent != "player") 
             { 
@@ -240,33 +246,168 @@ namespace TTTGame
             btn_next.Text = "Next";
 
             // end game
-            if ((gameData.ResultPlayer1 >= _dto.Bestof) || (gameData.ResultPlayer2 >= _dto.Bestof))
+            if ((gameData.ResultPlayer1 >= (int)(Math.Ceiling(_dto.Bestof / 2.0))) || (gameData.ResultPlayer2 >= (int)(Math.Ceiling(_dto.Bestof / 2.0))))
             {
                 btn_next.Text = "End";
                 IfEndGame = true;
                 label_endgame_descr.Visible = true;
                 label_endgame_descr.BringToFront();
-                
 
                 // 1st player wins
                 if (gameData.ResultPlayer1 > gameData.ResultPlayer2)
                 {
                     label_endgame_descr.Text = $"Player '{gameData.Player1}' won this game!";
+                    UpdateRanking(false, gameData.Player1, gameData.Player2);
                 }
                 // 2nd player wins
                 else if (gameData.ResultPlayer1 < gameData.ResultPlayer2)
                 {
                     label_endgame_descr.Text = $"Player '{gameData.Player2}' won this game!";
+                    UpdateRanking(false, gameData.Player2, gameData.Player1);
                 }
                 // draw
                 else
                 {
                     label_endgame_descr.Text = $"Draw!";
+                    UpdateRanking(true, gameData.Player1, gameData.Player2);
                 }
+
+                AddGameToDatabase();
             }
 
 
 
+        }
+
+        private void AddPlayerToDatabase(string nickname)
+        {
+            if ((nickname == "Easy Bot") || (nickname == "Hard Bot"))
+                return;
+            using (var connection = new SQLiteConnection(dataSource))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string checkQuery = "SELECT COUNT(*) FROM players WHERE nickname = @nickname";
+                    using (SQLiteCommand checkCommand = new SQLiteCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@nickname", nickname);
+                        int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            MessageBox.Show($"Player {nickname} exists in database.");
+                            return; 
+                        }
+                    }
+
+                    
+                    string insertQuery = "INSERT INTO players (nickname, ranking_points, is_bot) VALUES (@nickname, 100, 0)";
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+                    {
+                        insertCommand.Parameters.AddWithValue("@nickname", nickname);
+                        int result = insertCommand.ExecuteNonQuery();
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while loading data: " + ex.Message);
+                }
+
+            }
+        }
+
+        private void AddGameToDatabase()
+        {
+            using (var connection = new SQLiteConnection(dataSource))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string insertQuery = "INSERT INTO games (best_of, player1_nick, player1_score, player2_nick, player2_score) VALUES (@best_of, @player1_nick, @player1_score, @player2_nick, @player2_score)";
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+                    {
+                        insertCommand.Parameters.AddWithValue("@best_of", gameData.BestOf);
+                        insertCommand.Parameters.AddWithValue("@player1_nick", gameData.Player1);
+                        insertCommand.Parameters.AddWithValue("@player2_nick", gameData.Player2);
+                        insertCommand.Parameters.AddWithValue("@player1_score", gameData.ResultPlayer1);
+                        insertCommand.Parameters.AddWithValue("@player2_score", gameData.ResultPlayer2);
+                        int result = insertCommand.ExecuteNonQuery();
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while loading data: " + ex.Message);
+                }
+
+            }
+        }
+
+        private void UpdateRanking(bool is_draw, string winner, string loser)
+        {
+            using (var connection = new SQLiteConnection(dataSource))
+            {
+                try
+                {
+                    connection.Open();
+
+                    int WinnerRanking = 0;
+                    int LoserRanking = 0;
+
+                    string query = "SELECT ranking_points FROM players WHERE nickname = @nickname";
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nickname", winner);
+                        object result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            WinnerRanking = Convert.ToInt32(result);
+
+                        command.Parameters.AddWithValue("@nickname", loser);
+                        result = command.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            LoserRanking = Convert.ToInt32(result);
+                    }
+
+                    // calculating new players rankings
+                    double resultA = is_draw ? 0.5 : 1;
+                    int K = 30;
+                    int NewWinnerRanking = 0;
+                    int NewLoserRanking = 0;
+                    
+                    double expectedA = 1.0 / (1.0 + Math.Pow(10, (LoserRanking - WinnerRanking) / 400.0));
+                    double expectedB = 1.0 / (1.0 + Math.Pow(10, (WinnerRanking - LoserRanking) / 400.0));
+
+                    NewWinnerRanking = (int)Math.Round(WinnerRanking + K * (resultA - expectedA));
+                    NewLoserRanking = (int)Math.Round(LoserRanking + K * ((1 - resultA) - expectedB));
+
+                    query = "UPDATE players SET ranking_points = @newRankingPoints WHERE nickname = @nickname";
+
+                    using (SQLiteCommand checkCommand = new SQLiteCommand(query, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@newRankingPoints", NewWinnerRanking);
+                        checkCommand.Parameters.AddWithValue("@nickname", winner);
+                        checkCommand.ExecuteNonQuery();
+
+                        checkCommand.Parameters.Clear();
+                        checkCommand.Parameters.AddWithValue("@newRankingPoints", NewLoserRanking);
+                        checkCommand.Parameters.AddWithValue("@nickname", loser);
+                        checkCommand.ExecuteNonQuery();
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while loading data: " + ex.Message);
+                }
+
+            }
         }
 
         private void btn_next_Click(object sender, EventArgs e)

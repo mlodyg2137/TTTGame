@@ -153,6 +153,16 @@ namespace TTTGame.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap leaderboard_page {
+            get {
+                object obj = ResourceManager.GetObject("leaderboard_page", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap menu_page {
             get {
                 object obj = ResourceManager.GetObject("menu_page", resourceCulture);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TTTGame
 {
-    internal class Field
+    public class Field
     {
         public string Name { get; set; }
         public int Num { get; set; } // number of field 0...8 (from bottom left to top right)
