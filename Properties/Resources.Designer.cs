@@ -73,6 +73,16 @@ namespace TTTGame.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap exit_btn_hover {
+            get {
+                object obj = ResourceManager.GetObject("exit_btn_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap field {
             get {
                 object obj = ResourceManager.GetObject("field", resourceCulture);
@@ -153,6 +163,16 @@ namespace TTTGame.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap leaderboard_btn_hover {
+            get {
+                object obj = ResourceManager.GetObject("leaderboard_btn_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap leaderboard_page {
             get {
                 object obj = ResourceManager.GetObject("leaderboard_page", resourceCulture);
@@ -176,6 +196,16 @@ namespace TTTGame.Properties {
         internal static System.Drawing.Bitmap start_btn {
             get {
                 object obj = ResourceManager.GetObject("start_btn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap start_btn_hover {
+            get {
+                object obj = ResourceManager.GetObject("start_btn_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

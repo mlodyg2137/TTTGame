@@ -160,6 +160,9 @@
       <DependentUpon>usercontrol_leaderboard.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="bin\Debug\img\leaderboard_page.png" />
+    <None Include="bin\Debug\img\exit_btn_hover.png" />
+    <None Include="bin\Debug\img\leaderboard_btn_hover.png" />
+    <None Include="bin\Debug\img\start_btn_hover.png" />
     <Content Include="gameDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

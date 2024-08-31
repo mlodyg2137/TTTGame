@@ -299,7 +299,7 @@ namespace TTTGame
                     }
 
                     
-                    string insertQuery = "INSERT INTO players (nickname, ranking_points, is_bot) VALUES (@nickname, 100, 0)";
+                    string insertQuery = "INSERT INTO players (nickname, ranking_points, is_bot) VALUES (@nickname, 1000, 0)";
                     using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
                     {
                         insertCommand.Parameters.AddWithValue("@nickname", nickname);

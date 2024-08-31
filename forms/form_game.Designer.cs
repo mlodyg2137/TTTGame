@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_game));
             this.panel_game = new System.Windows.Forms.Panel();
             this.panel_board = new System.Windows.Forms.Panel();
             this.field_6 = new System.Windows.Forms.PictureBox();
@@ -376,9 +377,10 @@
             this.Controls.Add(this.label_player2);
             this.Controls.Add(this.label_result);
             this.Controls.Add(this.panel_game);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "form_game";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "form_game";
+            this.Text = "TicTacToe Game";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.loadMenu);
             this.Shown += new System.EventHandler(this.loadGameForm);
             this.panel_game.ResumeLayout(false);

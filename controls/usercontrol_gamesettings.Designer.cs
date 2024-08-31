@@ -192,6 +192,9 @@
             this.btn_start.TabIndex = 2;
             this.btn_start.TabStop = false;
             this.btn_start.Click += new System.EventHandler(this.loadGame);
+            this.btn_start.MouseLeave += new System.EventHandler(this.mouseOutField);
+            this.btn_start.MouseHover += new System.EventHandler(this.mouseOnField);
+            this.btn_start.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMovingOnField);
             // 
             // usercontrol_gamesettings
             // 

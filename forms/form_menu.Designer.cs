@@ -28,17 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_menu));
+            this.usercontrol_gamesettings1 = new TTTGame.usercontrol_gamesettings();
+            this.usercontrol_leaderboard1 = new TTTGame.usercontrol_leaderboard();
             this.panel_menu = new System.Windows.Forms.Panel();
             this.btn_exit = new System.Windows.Forms.PictureBox();
             this.btn_leaderboard = new System.Windows.Forms.PictureBox();
             this.btn_start = new System.Windows.Forms.PictureBox();
-            this.usercontrol_gamesettings1 = new TTTGame.usercontrol_gamesettings();
-            this.usercontrol_leaderboard1 = new TTTGame.usercontrol_leaderboard();
             this.panel_menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_exit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_leaderboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_start)).BeginInit();
             this.SuspendLayout();
+            // 
+            // usercontrol_gamesettings1
+            // 
+            this.usercontrol_gamesettings1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.usercontrol_gamesettings1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usercontrol_gamesettings1.Location = new System.Drawing.Point(0, 0);
+            this.usercontrol_gamesettings1.Name = "usercontrol_gamesettings1";
+            this.usercontrol_gamesettings1.Size = new System.Drawing.Size(634, 611);
+            this.usercontrol_gamesettings1.TabIndex = 1;
+            this.usercontrol_gamesettings1.Visible = false;
+            // 
+            // usercontrol_leaderboard1
+            // 
+            this.usercontrol_leaderboard1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.usercontrol_leaderboard1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usercontrol_leaderboard1.Location = new System.Drawing.Point(0, 0);
+            this.usercontrol_leaderboard1.Name = "usercontrol_leaderboard1";
+            this.usercontrol_leaderboard1.Size = new System.Drawing.Size(634, 611);
+            this.usercontrol_leaderboard1.TabIndex = 2;
+            this.usercontrol_leaderboard1.Visible = false;
             // 
             // panel_menu
             // 
@@ -63,6 +84,9 @@
             this.btn_exit.TabIndex = 2;
             this.btn_exit.TabStop = false;
             this.btn_exit.Click += new System.EventHandler(this.closeApplication);
+            this.btn_exit.MouseLeave += new System.EventHandler(this.mouseOutField);
+            this.btn_exit.MouseHover += new System.EventHandler(this.mouseOnField);
+            this.btn_exit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMovingOnField);
             // 
             // btn_leaderboard
             // 
@@ -75,6 +99,9 @@
             this.btn_leaderboard.TabIndex = 1;
             this.btn_leaderboard.TabStop = false;
             this.btn_leaderboard.Click += new System.EventHandler(this.loadLeaderboard);
+            this.btn_leaderboard.MouseLeave += new System.EventHandler(this.mouseOutField);
+            this.btn_leaderboard.MouseHover += new System.EventHandler(this.mouseOnField);
+            this.btn_leaderboard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMovingOnField);
             // 
             // btn_start
             // 
@@ -87,26 +114,9 @@
             this.btn_start.TabIndex = 0;
             this.btn_start.TabStop = false;
             this.btn_start.Click += new System.EventHandler(this.loadGameSettings);
-            // 
-            // usercontrol_gamesettings1
-            // 
-            this.usercontrol_gamesettings1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.usercontrol_gamesettings1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usercontrol_gamesettings1.Location = new System.Drawing.Point(0, 0);
-            this.usercontrol_gamesettings1.Name = "usercontrol_gamesettings1";
-            this.usercontrol_gamesettings1.Size = new System.Drawing.Size(634, 611);
-            this.usercontrol_gamesettings1.TabIndex = 1;
-            this.usercontrol_gamesettings1.Visible = false;
-            // 
-            // usercontrol_leaderboard1
-            // 
-            this.usercontrol_leaderboard1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.usercontrol_leaderboard1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usercontrol_leaderboard1.Location = new System.Drawing.Point(0, 0);
-            this.usercontrol_leaderboard1.Name = "usercontrol_leaderboard1";
-            this.usercontrol_leaderboard1.Size = new System.Drawing.Size(634, 611);
-            this.usercontrol_leaderboard1.TabIndex = 2;
-            this.usercontrol_leaderboard1.Visible = false;
+            this.btn_start.MouseLeave += new System.EventHandler(this.mouseOutField);
+            this.btn_start.MouseHover += new System.EventHandler(this.mouseOnField);
+            this.btn_start.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMovingOnField);
             // 
             // form_menu
             // 
@@ -117,9 +127,10 @@
             this.Controls.Add(this.panel_menu);
             this.Controls.Add(this.usercontrol_gamesettings1);
             this.Controls.Add(this.usercontrol_leaderboard1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "form_menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menu";
+            this.Text = "TicTacToe Menu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.closeApplication);
             this.Shown += new System.EventHandler(this.shownMenu);
             this.panel_menu.ResumeLayout(false);

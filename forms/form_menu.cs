@@ -49,5 +49,41 @@ namespace TTTGame
             panel_menu.Visible = true;
             panel_menu.Show();
         }
+
+        private void mouseOnField(object sender, EventArgs e)
+        {
+            var snd = sender as PictureBox;
+            if (snd.Name == "btn_start")
+                (sender as PictureBox).Image = Properties.Resources.start_btn_hover;
+            else if (snd.Name == "btn_leaderboard")
+                (sender as PictureBox).Image = Properties.Resources.leaderboard_btn_hover;
+            else if (snd.Name == "btn_exit")
+                (sender as PictureBox).Image = Properties.Resources.exit_btn_hover;
+
+
+        }
+        private void mouseMovingOnField(object sender, MouseEventArgs e)
+        {
+            var snd = sender as PictureBox;
+            if (snd.Name == "btn_start")
+                (sender as PictureBox).Image = Properties.Resources.start_btn_hover;
+            else if (snd.Name == "btn_leaderboard")
+                (sender as PictureBox).Image = Properties.Resources.leaderboard_btn_hover;
+            else if (snd.Name == "btn_exit")
+                (sender as PictureBox).Image = Properties.Resources.exit_btn_hover;
+        }
+
+        private void mouseOutField(object sender, EventArgs e)
+        {
+            var snd = sender as PictureBox;
+            if (snd.Name == "btn_start")
+                (sender as PictureBox).Image = Properties.Resources.start_btn;
+            else if (snd.Name == "btn_leaderboard")
+                (sender as PictureBox).Image = Properties.Resources.leaderboard_btn;
+            else if (snd.Name == "btn_exit")
+                (sender as PictureBox).Image = Properties.Resources.exit_btn;
+        }
+
+        
     }
 }

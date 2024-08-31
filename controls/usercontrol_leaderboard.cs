@@ -29,12 +29,13 @@ namespace TTTGame
                 {
                     connection.Open();
 
-                    string query = "SELECT nickname, ranking_points FROM players ORDER BY ranking_points DESC";
+                    string query = "SELECT ROW_NUMBER() OVER (ORDER BY [ranking_points] DESC) AS rank, nickname, ranking_points FROM players";
                    
                     SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(query, connection);
                     DataTable dataTable = new DataTable();
                     dataAdapter.Fill(dataTable);
                     dgv_board.DataSource = dataTable;
+                    dgv_board.Columns["rank"].HeaderText = "Rank";
                     dgv_board.Columns["nickname"].HeaderText = "Nickname";
                     dgv_board.Columns["ranking_points"].HeaderText = "Ranking ELO";
 
