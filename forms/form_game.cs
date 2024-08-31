@@ -295,10 +295,7 @@ namespace TTTGame
                         int count = Convert.ToInt32(checkCommand.ExecuteScalar());
 
                         if (count > 0)
-                        {
-                            MessageBox.Show($"Player {nickname} exists in database.");
                             return; 
-                        }
                     }
 
                     
