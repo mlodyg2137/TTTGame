@@ -13,7 +13,7 @@ TTTGame to gra "Kółko i krzyżyk" stworzona przy użyciu Windows Forms w języ
 
 1. **Klonowanie repozytorium**
    ```bash
-   git clone https://github.com/twoj-uzytkownik/TTTGame.git
+   git clone https://github.com/mlodyg2137/TTTGame.git
    ```
 2. **Otwórz projekt w Visual Studio**
    - Upewnij się, że masz zainstalowany .NET Framework 4.7.2 lub nowszy.
@@ -72,10 +72,10 @@ Po uruchomieniu aplikacji zobaczysz menu główne, które pozwala na:
 
 ## Autor
 
-- **Imię i nazwisko**: Twój pełne imię
-- **Email**: twój.email@example.com
-- **GitHub**: [Twój użytkownik GitHub](https://github.com/twoj-uzytkownik)
+- **Imię i nazwisko**: Kamil Szpechciński
+- **Email**: kamilsz2002@mat.umk.pl
+- **GitHub**: [mlodyg2137](https://github.com/mlodyg2137)
 
 ## Licencja
 
-TTTGame jest dostępne na licencji MIT. Zobacz plik [LICENSE](LICENSE) po więcej informacji.
+TTTGame jest dostępne na licencji MIT. 
