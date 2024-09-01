@@ -8,6 +8,7 @@ namespace TTTGame
 {
     internal class EasyBot : Bot
     {
+        // Easy bot makes random moves
         public EasyBot() { }
         public override int getMove(Field[] fields, bool player)
         {

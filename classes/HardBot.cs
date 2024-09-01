@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,31 +9,34 @@ namespace TTTGame
 {
     internal class HardBot : Bot
     {
+        // Hard bot uses min-max algorithm to find the best move in certain position. It considers all possible moves.
         public HardBot() { }
-        public override int getMove(Field[] fields, bool player)
+        private const int MaxDepth = 5;
+        public override int getMove(Field[] Fields, bool player)
         {
-            Field[] temp_fields = (Field[])fields.Clone();
-
+            Field[] fields = (Field[])Fields.Clone();
             int bestMove = -1;
-            int bestScore = int.MinValue;
+            int bestValue = player ? int.MinValue : int.MaxValue;
 
-            for (int i = 0; i < temp_fields.Length; i++)
+            for (int i = 0; i < fields.Length; i++)
             {
-                if (!temp_fields[i].IsTaken)
+                if (!fields[i].IsTaken)
                 {
-                    // Symulacja ruchu
-                    temp_fields[i].IsTaken = true;
-                    temp_fields[i].Player = player;
+                    fields[i].IsTaken = true;
+                    fields[i].Player = player;
 
-                    int score = Minimax(temp_fields, false, player);
+                    int moveValue = Minimax(fields, 0, !player);
 
-                    // Cofnięcie ruchu
-                    temp_fields[i].IsTaken = false;
-                    temp_fields[i].Player = false;
+                    fields[i].IsTaken = false;
 
-                    if (score > bestScore)
+                    if (player && moveValue > bestValue)
                     {
-                        bestScore = score;
+                        bestValue = moveValue;
+                        bestMove = i;
+                    }
+                    else if (!player && moveValue < bestValue)
+                    {
+                        bestValue = moveValue;
                         bestMove = i;
                     }
                 }
@@ -40,47 +44,62 @@ namespace TTTGame
 
             return bestMove;
         }
-        private int Minimax(Field[] board, bool isMaximizing, bool player)
+
+        private int Minimax(Field[] fields, int depth, bool isMaximizing)
         {
-            bool? winner = checkWinner(board);
-
-            if (winner != null)
+            int score = Evaluate(fields);
+            if (score == 10 || score == -10 || IsFull(fields))
             {
-                if (winner == player) return 1;
-                if (winner == !player) return -1;
-                return 0;
+                return score;
             }
 
-            int bestScore = isMaximizing ? int.MinValue : int.MaxValue;
-
-            for (int i = 0; i < board.Length; i++)
+            if (depth == MaxDepth)
             {
-                if (!board[i].IsTaken)
+                return score;
+            }
+
+            if (isMaximizing)
+            {
+                int best = int.MinValue;
+                for (int i = 0; i < fields.Length; i++)
                 {
-                    // Symulacja ruchu
-                    board[i].IsTaken = true;
-                    board[i].Player = isMaximizing ? player : !player;
+                    if (!fields[i].IsTaken)
+                    {
+                        fields[i].IsTaken = true;
+                        fields[i].Player = true;
 
-                    int score = Minimax(board, !isMaximizing, player);
+                        best = Math.Max(best, Minimax(fields, depth + 1, false));
 
-                    // Cofnięcie ruchu
-                    board[i].IsTaken = false;
-                    board[i].Player = false;
-
-                    bestScore = isMaximizing ? Math.Max(score, bestScore) : Math.Min(score, bestScore);
+                        fields[i].IsTaken = false;
+                    }
                 }
+                return best;
             }
+            else
+            {
+                int best = int.MaxValue;
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    if (!fields[i].IsTaken)
+                    {
+                        fields[i].IsTaken = true;
+                        fields[i].Player = false;
 
-            return bestScore;
+                        best = Math.Min(best, Minimax(fields, depth + 1, true));
+
+                        fields[i].IsTaken = false;
+                    }
+                }
+                return best;
+            }
         }
 
-        private bool? checkWinner(Field[] Fields)
+        private int Evaluate(Field[] Fields)
         {
             // Possible outcomes
-            // 0 - in progress
-            // 1 - X player wins,
-            // 2 - O player wins,
-            // 3 - draw
+            // 0 - in progress or draw
+            // 10 - X player wins,
+            // -10 - O player wins,
 
             // Checking win status
             for (int i = 0; i < 3; i++)
@@ -92,8 +111,8 @@ namespace TTTGame
                 {
                     if ((Fields[idx].Player == Fields[idx + 1].Player) && (Fields[idx + 1].Player == Fields[idx + 2].Player))
                     {
-                        if (Fields[idx].Player) return true;
-                        else return false;
+                        if (Fields[idx].Player) return 10;
+                        else return -10;
                     }
                 }
                 //column
@@ -101,8 +120,8 @@ namespace TTTGame
                 {
                     if ((Fields[i].Player == Fields[i + 3].Player) && (Fields[i + 3].Player == Fields[i + 6].Player))
                     {
-                        if (Fields[i].Player) return true;
-                        else return false;
+                        if (Fields[i].Player) return 10;
+                        else return -10;
                     }
                 }
             }
@@ -111,31 +130,27 @@ namespace TTTGame
             {
                 if ((Fields[0].Player == Fields[4].Player) && (Fields[4].Player == Fields[8].Player))
                 {
-                    if (Fields[0].Player) return true;
-                    else return false;
+                    if (Fields[0].Player) return 10;
+                    else return -10;
                 }
             }
             if ((Fields[2].IsTaken == true) && (Fields[4].IsTaken == true) && (Fields[6].IsTaken == true))
             {
                 if ((Fields[2].Player == Fields[4].Player) && (Fields[4].Player == Fields[6].Player))
                 {
-                    if (Fields[2].Player) return true;
-                    else return false;
+                    if (Fields[2].Player) return 10;
+                    else return -10;
                 }
-            }
-
-            // Checking draw status
-            int TakenFields = 0;
-            foreach (Field field in Fields)
-            {
-                if (field.IsTaken == true)  TakenFields++;
-            }
-
-            if (TakenFields == 9) return false;
+            } 
 
             // Game in progress
-            return null;
-
+            return 0;
         }
+
+        private bool IsFull(Field[] fields)
+        {
+            return fields.All(field => field.IsTaken);
+        }
+
     }
 }

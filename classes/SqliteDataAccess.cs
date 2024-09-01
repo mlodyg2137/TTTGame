@@ -12,7 +12,7 @@ namespace TTTGame
 {
     public class SqliteDataAccess
     {
-        public string dataSource = "Data Source=gameDB.db";
+        public static string DataSource = "Data Source=gameDB.db";
         
     }
 }

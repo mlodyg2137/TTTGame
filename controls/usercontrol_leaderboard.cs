@@ -17,7 +17,6 @@ namespace TTTGame
         public usercontrol_leaderboard()
         {
             InitializeComponent();
-            LoadData();
         }
         private void LoadData()
         {
@@ -57,6 +56,15 @@ namespace TTTGame
             this.SendToBack();
             Parent.Controls["panel_menu"].Visible = true;
             Parent.Controls["panel_menu"].BringToFront();
+        }
+
+        private void handleVisibleChange(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                LoadData();
+            }
+            
         }
     }
 }

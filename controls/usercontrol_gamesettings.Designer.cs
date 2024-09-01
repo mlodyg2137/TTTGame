@@ -30,14 +30,14 @@
         {
             this.panel_gamesettings = new System.Windows.Forms.Panel();
             this.btn_back = new System.Windows.Forms.Button();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBox_bestof = new System.Windows.Forms.CheckedListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox_opponentNickname = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBox_opponent = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_nickname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_start = new System.Windows.Forms.PictureBox();
             this.panel_gamesettings.SuspendLayout();
@@ -50,14 +50,14 @@
             this.panel_gamesettings.BackgroundImage = global::TTTGame.Properties.Resources.gamesettings_page;
             this.panel_gamesettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel_gamesettings.Controls.Add(this.btn_back);
-            this.panel_gamesettings.Controls.Add(this.checkedListBox2);
+            this.panel_gamesettings.Controls.Add(this.checkedListBox_bestof);
             this.panel_gamesettings.Controls.Add(this.label5);
             this.panel_gamesettings.Controls.Add(this.label4);
-            this.panel_gamesettings.Controls.Add(this.textBox2);
+            this.panel_gamesettings.Controls.Add(this.textBox_opponentNickname);
             this.panel_gamesettings.Controls.Add(this.label3);
-            this.panel_gamesettings.Controls.Add(this.checkedListBox1);
+            this.panel_gamesettings.Controls.Add(this.checkedListBox_opponent);
             this.panel_gamesettings.Controls.Add(this.label2);
-            this.panel_gamesettings.Controls.Add(this.textBox1);
+            this.panel_gamesettings.Controls.Add(this.textBox_nickname);
             this.panel_gamesettings.Controls.Add(this.label1);
             this.panel_gamesettings.Controls.Add(this.btn_start);
             this.panel_gamesettings.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -76,20 +76,20 @@
             this.btn_back.UseVisualStyleBackColor = true;
             this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
-            // checkedListBox2
+            // checkedListBox_bestof
             // 
-            this.checkedListBox2.CheckOnClick = true;
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
+            this.checkedListBox_bestof.CheckOnClick = true;
+            this.checkedListBox_bestof.FormattingEnabled = true;
+            this.checkedListBox_bestof.Items.AddRange(new object[] {
             "1",
             "3",
             "5",
             "7"});
-            this.checkedListBox2.Location = new System.Drawing.Point(222, 388);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(39, 64);
-            this.checkedListBox2.TabIndex = 12;
-            this.checkedListBox2.SelectedIndexChanged += new System.EventHandler(this.handleCheckbox2Change);
+            this.checkedListBox_bestof.Location = new System.Drawing.Point(222, 388);
+            this.checkedListBox_bestof.Name = "checkedListBox_bestof";
+            this.checkedListBox_bestof.Size = new System.Drawing.Size(39, 64);
+            this.checkedListBox_bestof.TabIndex = 12;
+            this.checkedListBox_bestof.SelectedIndexChanged += new System.EventHandler(this.handleCheckbox2Change);
             // 
             // label5
             // 
@@ -115,13 +115,13 @@
             this.label4.Text = "SET NICKNAME AND CHOOSE OPPONENT";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox2
+            // textBox_opponentNickname
             // 
-            this.textBox2.Location = new System.Drawing.Point(376, 330);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(152, 20);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.Visible = false;
+            this.textBox_opponentNickname.Location = new System.Drawing.Point(376, 330);
+            this.textBox_opponentNickname.Name = "textBox_opponentNickname";
+            this.textBox_opponentNickname.Size = new System.Drawing.Size(152, 20);
+            this.textBox_opponentNickname.TabIndex = 9;
+            this.textBox_opponentNickname.Visible = false;
             // 
             // label3
             // 
@@ -136,19 +136,19 @@
             this.label3.Text = "Opponent\'s nickname";
             this.label3.Visible = false;
             // 
-            // checkedListBox1
+            // checkedListBox_opponent
             // 
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.checkedListBox_opponent.CheckOnClick = true;
+            this.checkedListBox_opponent.FormattingEnabled = true;
+            this.checkedListBox_opponent.Items.AddRange(new object[] {
             "2 Players",
             "Easy bot",
             "Hard bot"});
-            this.checkedListBox1.Location = new System.Drawing.Point(222, 301);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(96, 49);
-            this.checkedListBox1.TabIndex = 7;
-            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.handleCheckboxChange);
+            this.checkedListBox_opponent.Location = new System.Drawing.Point(222, 301);
+            this.checkedListBox_opponent.Name = "checkedListBox_opponent";
+            this.checkedListBox_opponent.Size = new System.Drawing.Size(96, 49);
+            this.checkedListBox_opponent.TabIndex = 7;
+            this.checkedListBox_opponent.SelectedIndexChanged += new System.EventHandler(this.handleCheckboxChange);
             // 
             // label2
             // 
@@ -162,12 +162,12 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Opponent";
             // 
-            // textBox1
+            // textBox_nickname
             // 
-            this.textBox1.Location = new System.Drawing.Point(222, 231);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(152, 20);
-            this.textBox1.TabIndex = 5;
+            this.textBox_nickname.Location = new System.Drawing.Point(222, 231);
+            this.textBox_nickname.Name = "textBox_nickname";
+            this.textBox_nickname.Size = new System.Drawing.Size(152, 20);
+            this.textBox_nickname.TabIndex = 5;
             // 
             // label1
             // 
@@ -217,12 +217,12 @@
         private System.Windows.Forms.PictureBox btn_start;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.TextBox textBox_nickname;
+        private System.Windows.Forms.CheckedListBox checkedListBox_opponent;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox_opponentNickname;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.CheckedListBox checkedListBox_bestof;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btn_back;
     }

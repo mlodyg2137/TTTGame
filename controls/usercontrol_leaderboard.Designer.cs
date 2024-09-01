@@ -91,6 +91,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "usercontrol_leaderboard";
             this.Size = new System.Drawing.Size(650, 650);
+            this.VisibleChanged += new System.EventHandler(this.handleVisibleChange);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_board)).EndInit();
             this.ResumeLayout(false);
