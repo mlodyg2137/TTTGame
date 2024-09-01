@@ -8,8 +8,16 @@ namespace TTTGame
 {
     internal class EasyBot : Bot
     {
-        // Easy bot makes random moves
+        /// <summary>
+        /// Reprezentuje prostego bota, który wykonuje losowe ruchy.
+        /// </summary>
         public EasyBot() { }
+        /// <summary>
+        /// Zwraca indeks pola, na które bot zdecyduje się postawić swój znak. Wybiera losowy dostępny ruch.
+        /// </summary>
+        /// /// <param name="fields">Tablica reprezentująca stan wszystkich pól na planszy.</param>
+        /// <param name="player">Aktualny gracz (true dla "X", false dla "O").</param>
+        /// <returns>Indeks pola, na które bot zdecyduje się wykonać ruch.</returns>
         public override int getMove(Field[] fields, bool player)
         {
             List<int> availableMoves = new List<int>();

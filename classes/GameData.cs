@@ -6,24 +6,73 @@ using System.Threading.Tasks;
 
 namespace TTTGame
 {
+    /// <summary>
+    /// Reprezentuje dane i logikę gry "Kółko i krzyżyk" (Tic Tac Toe).
+    /// Przechowuje informacje o graczach, ich wynikach, stanie planszy oraz aktualnym stanie gry.
+    /// </summary>
     public class GameData
     {
+        /// <summary>
+        /// Przechowuje nazwę pierwszego gracza.
+        /// </summary>
         public string Player1 { set; get; }
+
+        /// <summary>
+        /// Przechowuje nazwę drugiego gracza.
+        /// </summary>
         public string Player2 { set; get; }
+
+        /// <summary>
+        /// Przechowuje wynik pierwszego gracza.
+        /// </summary>
         public double ResultPlayer1 { set; get; }
+
+        /// <summary>
+        /// Przechowuje wynik drugiego gracza.
+        /// </summary>
         public double ResultPlayer2 { set; get; }
-        public int BestOf {  set; get; }
+
+        /// <summary>
+        /// Przechowuje liczbę rund, które są rozgrywane w grze.
+        /// </summary>
+        public int BestOf { set; get; }
+
+        /// <summary>
+        /// Tablica przechowująca stan wszystkich pól na planszy.
+        /// </summary>
         public Field[] Fields { set; get; }
+
+        /// <summary>
+        /// Określa, który gracz jest aktualnie w ruchu.
+        /// True dla gracza "X", False dla gracza "O".
+        /// </summary>
         public bool CurrentPlayer { set; get; } // true - 'X' player, false - 'O' player
+
+        /// <summary>
+        /// Liczba wykonanych ruchów w aktualnej rundzie.
+        /// </summary>
         public int NumMoves { set; get; }
 
-        public GameData() 
+        /// <summary>
+        /// Konstruktor inicjalizujący nową instancję klasy <see cref="GameData"/> z domyślnymi ustawieniami.
+        /// Tworzy tablicę pól gry, ustawia aktualnego gracza na "X" oraz liczbę ruchów na 0.
+        /// </summary>
+        public GameData()
         {
             Fields = new Field[9];
             CurrentPlayer = true;
             NumMoves = 0;
         }
 
+        /// <summary>
+        /// Metoda sprawdzająca aktualny stan gry.
+        /// Możliwe zwracane wartości:
+        /// 0 - Gra w toku.
+        /// 1 - Wygrana gracza "X".
+        /// 2 - Wygrana gracza "O".
+        /// 3 - Remis.
+        /// </summary>
+        /// <returns>Aktualny stan gry jako liczba całkowita.</returns>
         public int getGameStatus()
         {
             // Possible outcomes
@@ -85,6 +134,9 @@ namespace TTTGame
 
         }
 
+        /// <summary>
+        /// Inicjalizuje tablicę <see cref="Fields"/>, tworząc nowe instancje obiektów <see cref="Field"/> dla każdego pola na planszy.
+        /// </summary>
         public void loadFields()
         {
             for (int i = 0; i < 9; i++)

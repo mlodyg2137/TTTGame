@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace TTTGame
 {
+    /// <summary>
+    /// Reprezentuje trudnego bota w grze "Kółko i krzyżyk", który wykorzystuje algorytm minimax do wybrania najlepszego możliwego ruchu.
+    /// </summary>
     internal class HardBot : Bot
     {
-        // Hard bot uses min-max algorithm to find the best move in certain position. It considers all possible moves.
         public HardBot() { }
         private const int MaxDepth = 5;
+        /// <summary>
+        /// Zwraca indeks pola, na które bot zdecyduje się postawić swój znak, używając algorytmu minimax.
+        /// </summary>
+        /// <param name="Fields">Tablica reprezentująca stan wszystkich pól na planszy.</param>
+        /// <param name="player">Aktualny gracz (true dla "X", false dla "O").</param>
+        /// <returns>Indeks pola, na które bot zdecyduje się wykonać ruch.</returns>
         public override int getMove(Field[] Fields, bool player)
         {
             Field[] fields = (Field[])Fields.Clone();
@@ -45,6 +53,13 @@ namespace TTTGame
             return bestMove;
         }
 
+        /// <summary>
+        /// Algorytm minimax, który ocenia najlepszy możliwy ruch dla bota.
+        /// </summary>
+        /// <param name="fields">Tablica reprezentująca stan wszystkich pól na planszy.</param>
+        /// <param name="depth">Głębokość rekursji.</param>
+        /// <param name="isMaximizing">Flaga wskazująca, czy bot maksymalizuje (true) czy minimalizuje (false) wynik.</param>
+        /// <returns>Ocena ruchu jako liczba całkowita.</returns>
         private int Minimax(Field[] fields, int depth, bool isMaximizing)
         {
             int score = Evaluate(fields);
@@ -94,14 +109,13 @@ namespace TTTGame
             }
         }
 
+        /// <summary>
+        /// Ocena stanu planszy w kontekście możliwych wygranych lub przegranych.
+        /// </summary>
+        /// <param name="Fields">Tablica reprezentująca stan wszystkich pól na planszy.</param>
+        /// <returns>Ocena stanu planszy: 10, -10 lub 0.</returns>
         private int Evaluate(Field[] Fields)
         {
-            // Possible outcomes
-            // 0 - in progress or draw
-            // 10 - X player wins,
-            // -10 - O player wins,
-
-            // Checking win status
             for (int i = 0; i < 3; i++)
             {
                 int idx = 3 * i;
@@ -147,6 +161,11 @@ namespace TTTGame
             return 0;
         }
 
+        /// <summary>
+        /// Sprawdza, czy wszystkie pola na planszy są zajęte.
+        /// </summary>
+        /// <param name="fields">Tablica reprezentująca stan wszystkich pól na planszy.</param>
+        /// <returns>True, jeśli wszystkie pola są zajęte; w przeciwnym razie false.</returns>
         private bool IsFull(Field[] fields)
         {
             return fields.All(field => field.IsTaken);

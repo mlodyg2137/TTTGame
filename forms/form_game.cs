@@ -9,35 +9,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace TTTGame
 {
-
+    /// <summary>
+    /// Formularz reprezentujący główny interfejs gry "Kółko i krzyżyk". Odpowiada za zarządzanie logiką gry, interakcją z użytkownikiem oraz komunikacją z bazą danych.
+    /// </summary>
     public partial class form_game : Form
     {
         GameData gameData = new GameData();
         DataTransferObject _dto;
         string dataSource = "Data Source=gameDB.db";
-        bool Xplayer; // true - first player is 'X', false - second player is 'X'
+        bool Xplayer; // true - pierwszy gracz jest 'X', false - drugi gracz jest 'X'
         int round = 0;
         bool IfEndGame = false;
         bool againstBot = false;
         bool botOnMove = false;
         Bot bot;
 
+        /// <summary>
+        /// Inicjalizuje nową instancję klasy <see cref="form_game"/> z przekazanym obiektem DataTransferObject.
+        /// </summary>
+        /// <param name="dto">Obiekt DTO przekazujący dane z poprzedniego formularza.</param>
         public form_game(DataTransferObject dto)
         {
             InitializeComponent();
             _dto = dto;
         }
 
+        /// <summary>
+        /// Ładuje główne menu po zamknięciu formularza.
+        /// </summary>
         private void loadMenu(object sender, FormClosedEventArgs e)
         {
             this.Close();
             form_menu menu = new form_menu();
             menu.Show();
-            
         }
+
+        /// <summary>
+        /// Rozpoczyna nową grę, inicjalizując planszę i ustawiając stan gry na początkowy.
+        /// </summary>
         private void startGame()
         {
             gameData.loadFields();
@@ -65,9 +76,7 @@ namespace TTTGame
             {
                 Control[] fld = this.Controls.Find($"field_{i}", true);
                 (fld[0] as PictureBox).Image = Properties.Resources.field;
-                
             }
-                
 
             round++;
             label_result.Text = $"{gameData.ResultPlayer1}:{gameData.ResultPlayer2}";
@@ -76,10 +85,12 @@ namespace TTTGame
             label_bestof.Text = $"Best-of: {_dto.Bestof}";
             label_round.Text = $"Round: {round}";
 
-            panel_board.Enabled = true ;
-
+            panel_board.Enabled = true;
         }
 
+        /// <summary>
+        /// Ładuje dane i ustawienia gry po załadowaniu formularza.
+        /// </summary>
         private void loadGameForm(object sender, EventArgs e)
         {
             gameData.Player1 = _dto.PlayerNickname;
@@ -95,8 +106,8 @@ namespace TTTGame
             AddPlayerToDatabase(_dto.PlayerNickname);
             AddPlayerToDatabase(_dto.OpponentNickname);
 
-            if (_dto.ChosenOpponent != "player") 
-            { 
+            if (_dto.ChosenOpponent != "player")
+            {
                 if (_dto.ChosenOpponent == "easy_bot")
                 {
                     bot = new EasyBot();
@@ -110,11 +121,20 @@ namespace TTTGame
             }
         }
 
+        /// <summary>
+        /// Zwraca numer pola na planszy na podstawie kontrolki, która wywołała zdarzenie.
+        /// </summary>
+        /// <param name="sender">Kontrolka wywołująca zdarzenie.</param>
+        /// <returns>Numer pola na planszy.</returns>
         public int getFieldNum(object sender)
         {
             char LastSign = (sender as PictureBox).Name[(sender as PictureBox).Name.Length - 1];
             return LastSign - '0';
         }
+
+        /// <summary>
+        /// Zmienia obraz pola na podświetlony, gdy kursor myszy znajduje się nad polem.
+        /// </summary>
         private void mouseOnField(object sender, EventArgs e)
         {
             if (!gameData.Fields[getFieldNum(sender)].IsTaken)
@@ -123,6 +143,9 @@ namespace TTTGame
             }
         }
 
+        /// <summary>
+        /// Przywraca oryginalny obraz pola, gdy kursor myszy opuszcza pole.
+        /// </summary>
         private void mouseOutField(object sender, EventArgs e)
         {
             if (!gameData.Fields[getFieldNum(sender)].IsTaken)
@@ -131,6 +154,9 @@ namespace TTTGame
             }
         }
 
+        /// <summary>
+        /// Obsługuje kliknięcie na pole gry, wykonując ruch i aktualizując stan gry.
+        /// </summary>
         private void clickField(object sender, MouseEventArgs e)
         {
             bool IfMoved = false;
@@ -145,10 +171,13 @@ namespace TTTGame
             }
         }
 
+        /// <summary>
+        /// Sprawdza stan gry po wykonaniu ruchu i aktualizuje interfejs użytkownika.
+        /// </summary>
         private void checkGameStatusAfterMove()
         {
             int status = gameData.getGameStatus();
-            // game in progress
+            // gra w toku
             if (status == 0)
             {
                 if (gameData.CurrentPlayer)
@@ -160,30 +189,32 @@ namespace TTTGame
                     botOnMove = true;
                 }
             }
-            // 'x' player wins
+            // 'X' wygrywa
             else if (status == 1)
             {
                 game_status.Text = "Player X won!";
                 handleEndMatch(true);
             }
+            // 'O' wygrywa
             else if (status == 2)
-            // 'o' player wins
             {
                 game_status.Text = "Player O won!";
                 handleEndMatch(false);
             }
+            // remis
             else if (status == 3)
-            // draw
             {
                 game_status.Text = "Draw.";
                 handleEndMatch(false, true);
             }
         }
 
+        /// <summary>
+        /// Wykonuje ruch na podstawie kliknięcia na pole.
+        /// </summary>
         private void handleMove(object sender)
         {
-            
-            if (gameData.CurrentPlayer) // 'X' player
+            if (gameData.CurrentPlayer) // 'X' gracz
             {
                 (sender as PictureBox).Image = Properties.Resources.field_x;
                 gameData.Fields[getFieldNum(sender)].IsTaken = true;
@@ -191,20 +222,22 @@ namespace TTTGame
                 gameData.CurrentPlayer = !gameData.CurrentPlayer;
                 gameData.NumMoves++;
             }
-            else // 'O' player
+            else // 'O' gracz
             {
-                    
                 (sender as PictureBox).Image = Properties.Resources.field_o;
                 gameData.Fields[getFieldNum(sender)].IsTaken = true;
                 gameData.Fields[getFieldNum(sender)].Player = gameData.CurrentPlayer;
                 gameData.CurrentPlayer = !gameData.CurrentPlayer;
                 gameData.NumMoves++;
             }
-            
-            
         }
 
-        private void handleEndMatch(bool wonSign, bool isDraw=false)
+        /// <summary>
+        /// Obsługuje zakończenie rundy lub gry, aktualizując wyniki graczy i interfejs użytkownika.
+        /// </summary>
+        /// <param name="wonSign">Określa, który znak wygrał rundę (true dla 'X', false dla 'O').</param>
+        /// <param name="isDraw">Określa, czy runda zakończyła się remisem.</param>
+        private void handleEndMatch(bool wonSign, bool isDraw = false)
         {
             if (isDraw)
             {
@@ -212,27 +245,27 @@ namespace TTTGame
                 gameData.ResultPlayer2 += 0.5;
                 label_winstatus.Text = $"Draw!";
             }
-            else if (wonSign) // 'X' win
+            else if (wonSign) // 'X' wygrywa
             {
-                if (wonSign==Xplayer) 
+                if (wonSign == Xplayer)
                 {
                     gameData.ResultPlayer1++;
                     label_winstatus.Text = $"{gameData.Player1} won round!";
                 }
-                else 
-                { 
-                    gameData.ResultPlayer2++;
-                    label_winstatus.Text = $"{gameData.Player2} won round!";
-                }
-            }
-            else if (!wonSign) // 'O' win
-            {
-                if (!wonSign == Xplayer) 
+                else
                 {
                     gameData.ResultPlayer2++;
                     label_winstatus.Text = $"{gameData.Player2} won round!";
                 }
-                else 
+            }
+            else if (!wonSign) // 'O' wygrywa
+            {
+                if (!wonSign == Xplayer)
+                {
+                    gameData.ResultPlayer2++;
+                    label_winstatus.Text = $"{gameData.Player2} won round!";
+                }
+                else
                 {
                     gameData.ResultPlayer1++;
                     label_winstatus.Text = $"{gameData.Player1} won round!";
@@ -244,7 +277,7 @@ namespace TTTGame
             panel_endround.Visible = true;
             btn_next.Text = "Next";
 
-            // end game
+            // koniec gry
             if ((gameData.ResultPlayer1 >= (int)(Math.Ceiling(_dto.Bestof / 2.0))) || (gameData.ResultPlayer2 >= (int)(Math.Ceiling(_dto.Bestof / 2.0))))
             {
                 btn_next.Text = "End";
@@ -252,19 +285,19 @@ namespace TTTGame
                 label_endgame_descr.Visible = true;
                 label_endgame_descr.BringToFront();
 
-                // 1st player wins
+                // pierwszy gracz wygrywa
                 if (gameData.ResultPlayer1 > gameData.ResultPlayer2)
                 {
                     label_endgame_descr.Text = $"Player '{gameData.Player1}' won this game!";
                     UpdateRanking(false, gameData.Player1, gameData.Player2);
                 }
-                // 2nd player wins
+                // drugi gracz wygrywa
                 else if (gameData.ResultPlayer1 < gameData.ResultPlayer2)
                 {
                     label_endgame_descr.Text = $"Player '{gameData.Player2}' won this game!";
                     UpdateRanking(false, gameData.Player2, gameData.Player1);
                 }
-                // draw
+                // remis
                 else
                 {
                     label_endgame_descr.Text = $"Draw!";
@@ -273,11 +306,12 @@ namespace TTTGame
 
                 AddGameToDatabase();
             }
-
-
-
         }
 
+        /// <summary>
+        /// Dodaje gracza do bazy danych, jeśli nie istnieje.
+        /// </summary>
+        /// <param name="nickname">Pseudonim gracza do dodania.</param>
         private void AddPlayerToDatabase(string nickname)
         {
             if ((nickname == "Easy Bot") || (nickname == "Hard Bot"))
@@ -295,10 +329,9 @@ namespace TTTGame
                         int count = Convert.ToInt32(checkCommand.ExecuteScalar());
 
                         if (count > 0)
-                            return; 
+                            return;
                     }
 
-                    
                     string insertQuery = "INSERT INTO players (nickname, ranking_points, is_bot) VALUES (@nickname, 1000, 0)";
                     using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
                     {
@@ -312,10 +345,12 @@ namespace TTTGame
                 {
                     MessageBox.Show("An error occurred while loading data: " + ex.Message);
                 }
-
             }
         }
 
+        /// <summary>
+        /// Dodaje grę do bazy danych po zakończeniu.
+        /// </summary>
         private void AddGameToDatabase()
         {
             using (var connection = new SQLiteConnection(dataSource))
@@ -341,10 +376,15 @@ namespace TTTGame
                 {
                     MessageBox.Show("An error occurred while loading data: " + ex.Message);
                 }
-
             }
         }
 
+        /// <summary>
+        /// Aktualizuje ranking graczy w bazie danych po zakończeniu gry.
+        /// </summary>
+        /// <param name="is_draw">Określa, czy gra zakończyła się remisem.</param>
+        /// <param name="winner">Pseudonim zwycięzcy.</param>
+        /// <param name="loser">Pseudonim przegranego.</param>
         private void UpdateRanking(bool is_draw, string winner, string loser)
         {
             using (var connection = new SQLiteConnection(dataSource))
@@ -370,12 +410,12 @@ namespace TTTGame
                             LoserRanking = Convert.ToInt32(result);
                     }
 
-                    // calculating new players rankings
+                    // obliczanie nowych rankingów graczy
                     double resultA = is_draw ? 0.5 : 1;
                     int K = 30;
                     int NewWinnerRanking = 0;
                     int NewLoserRanking = 0;
-                    
+
                     double expectedA = 1.0 / (1.0 + Math.Pow(10, (LoserRanking - WinnerRanking) / 400.0));
                     double expectedB = 1.0 / (1.0 + Math.Pow(10, (WinnerRanking - LoserRanking) / 400.0));
 
@@ -402,10 +442,12 @@ namespace TTTGame
                 {
                     MessageBox.Show("An error occurred while loading data: " + ex.Message);
                 }
-
             }
         }
 
+        /// <summary>
+        /// Obsługuje kliknięcie przycisku "Next", uruchamiając kolejną rundę lub kończąc grę.
+        /// </summary>
         private void btn_next_Click(object sender, EventArgs e)
         {
             if (!IfEndGame)
@@ -417,9 +459,11 @@ namespace TTTGame
             {
                 loadMenu(sender, e as FormClosedEventArgs);
             }
-            
         }
 
+        /// <summary>
+        /// Obsługuje ruch bota, gdy jest jego kolej.
+        /// </summary>
         private void timer_handlebot_Tick(object sender, EventArgs e)
         {
             if (botOnMove)
@@ -429,7 +473,7 @@ namespace TTTGame
                 Control[] fld = this.Controls.Find($"field_{move}", true);
                 (fld[0] as PictureBox).Image = Properties.Resources.field;
 
-                if (gameData.CurrentPlayer) // 'X' player
+                if (gameData.CurrentPlayer) // 'X' gracz
                 {
                     (fld[0] as PictureBox).Image = Properties.Resources.field_x;
                     gameData.Fields[move].IsTaken = true;
@@ -437,9 +481,8 @@ namespace TTTGame
                     gameData.CurrentPlayer = !gameData.CurrentPlayer;
                     gameData.NumMoves++;
                 }
-                else // 'O' player
+                else // 'O' gracz
                 {
-
                     (fld[0] as PictureBox).Image = Properties.Resources.field_o;
                     gameData.Fields[move].IsTaken = true;
                     gameData.Fields[move].Player = gameData.CurrentPlayer;
